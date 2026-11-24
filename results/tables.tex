@@ -1,0 +1,161 @@
+% Tableaux générés automatiquement par experiments.py
+% Ne pas éditer à la main.
+
+\begin{table}[htbp]
+\centering
+\caption{Erreurs relatives du gradient checking (différences finies centrées, $\varepsilon = 10^{-5}$).}
+\label{tab:gradcheck}
+\resizebox{\textwidth}{!}{\begin{tabular}{lccccccc}
+\toprule
+ & $W^{(1)}$ & $b^{(1)}$ & $W^{(2)}$ & $b^{(2)}$ & $W^{(3)}$ & $b^{(3)}$ & Maximum \\
+\midrule
+Erreur relative & $4.4\times 10^{-11}$ & $2.7\times 10^{-11}$ & $1.9\times 10^{-11}$ & $4.9\times 10^{-11}$ & $2.8\times 10^{-11}$ & $1.8\times 10^{-12}$ & $4.9\times 10^{-11}$ \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{table}[htbp]
+\centering
+\caption{Comparaison SGD / Momentum / Adam (moyenne $\pm$ écart-type sur 3 graines, 300 époques, batch 32).}
+\label{tab:c}
+\resizebox{\textwidth}{!}{\begin{tabular}{llccccc}
+\toprule
+Optimiseur & Hyperparamètres & \multicolumn{1}{c}{Loss train} & \multicolumn{1}{c}{Loss val.} & \multicolumn{1}{c}{Acc. val.} & \multicolumn{1}{c}{1\textsuperscript{re} époque acc $\ge 0{,}95$} & \multicolumn{1}{c}{Temps (s)} \\
+\midrule
+SGD & $\alpha = 0{,}1$ & 0.0667 $\pm$ 0.0008 & 0.0847 $\pm$ 0.0037 & 0.974 $\pm$ 0.002 & 18.7 $\pm$ 5.2 & 2.13 $\pm$ 0.78 \\
+Momentum & $\alpha = 0{,}1$, $\beta = 0{,}9$ & 0.0676 $\pm$ 0.0013 & 0.0898 $\pm$ 0.0083 & 0.974 $\pm$ 0.002 & 17.7 $\pm$ 3.3 & 3.26 $\pm$ 0.10 \\
+Adam & $\alpha = 10^{-3}$ & 0.0686 $\pm$ 0.0006 & 0.0821 $\pm$ 0.0020 & 0.977 $\pm$ 0.000 & 47.3 $\pm$ 11.9 & 4.36 $\pm$ 0.23 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{table}[htbp]
+\centering
+\caption{Sensibilité au pas d'apprentissage $\alpha$ et au paramètre $\beta$ du momentum (300 époques, batch 32).}
+\label{tab:c_lr}
+\resizebox{\textwidth}{!}{\begin{tabular}{lcccc}
+\toprule
+Configuration & Loss train & Loss val. & Acc. val. & $\|\theta^\star\|_2$ \\
+\midrule
+SGD ($\alpha = 0.001$) & 0.2573 & 0.2995 & 0.877 & 6.375 \\
+SGD ($\alpha = 0.01$) & 0.1070 & 0.1075 & 0.963 & 7.588 \\
+SGD ($\alpha = 0.1$) & 0.0665 & 0.0805 & 0.973 & 9.425 \\
+SGD ($\alpha = 1$) & 0.0601 & 0.1411 & 0.977 & 16.922 \\
+Adam ($\alpha = 0.0001$) & 0.2061 & 0.2326 & 0.900 & 6.811 \\
+Adam ($\alpha = 0.001$) & 0.0687 & 0.0842 & 0.977 & 9.572 \\
+Adam ($\alpha = 0.01$) & 0.0547 & 0.1311 & 0.977 & 17.394 \\
+Adam ($\alpha = 0.1$) & 0.0784 & 0.1900 & 0.967 & 43.694 \\
+Momentum ($\beta = 0.5$) & 0.0662 & 0.0804 & 0.977 & 9.454 \\
+Momentum ($\beta = 0.9$) & 0.0657 & 0.0814 & 0.977 & 9.355 \\
+Momentum ($\beta = 0.99$) & 0.0694 & 0.0798 & 0.977 & 8.898 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{table}[htbp]
+\centering
+\caption{Effet de la pénalité $L_2$ (Adam, 300 époques) : les biais ne sont pas pénalisés.}
+\label{tab:d_l2}
+\resizebox{\textwidth}{!}{\begin{tabular}{lccccc}
+\toprule
+Pénalité & Loss train & Loss val. & Acc. val. & $\|\theta^\star\|_2$ & Écart val. $-$ train \\
+\midrule
+$\lambda = 0$ & 0.0687 & 0.0842 & 0.977 & 9.572 & 0.016 \\
+$\lambda = 0.00001$ & 0.0679 & 0.0883 & 0.977 & 9.592 & 0.020 \\
+$\lambda = 0.0001$ & 0.0689 & 0.0868 & 0.977 & 9.009 & 0.018 \\
+$\lambda = 0.001$ & 0.0740 & 0.0786 & 0.977 & 7.232 & 0.005 \\
+$\lambda = 0.01$ & 0.1161 & 0.1233 & 0.963 & 4.805 & 0.007 \\
+$\lambda = 0.1$ & 0.3104 & 0.3459 & 0.857 & 2.020 & 0.036 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{table}[htbp]
+\centering
+\caption{Effet du dropout (taux $\delta = 1-p$), Adam, 300 époques. Le dropout est désactivé en validation.}
+\label{tab:d_dropout}
+\resizebox{\textwidth}{!}{\begin{tabular}{lcccc}
+\toprule
+Conservation $p$ & Loss train & Loss val. & Acc. val. & Écart val. $-$ train \\
+\midrule
+$p = 0.9$ & 0.0724 & 0.0929 & 0.977 & 0.021 \\
+$p = 0.8$ & 0.0818 & 0.1035 & 0.970 & 0.022 \\
+$p = 0.7$ & 0.1011 & 0.1306 & 0.963 & 0.029 \\
+$p = 0.5$ & 0.1770 & 0.2022 & 0.913 & 0.025 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{table}[htbp]
+\centering
+\caption{Évaluation finale unique sur le jeu de test des modèles sélectionnés par validation.}
+\label{tab:d_test}
+\resizebox{\textwidth}{!}{\begin{tabular}{lccccc}
+\toprule
+Modèle sélectionné & Hyperparamètre & Loss train & Loss val. & Loss test & Acc. test \\
+\midrule
+Sans régularisation & -- & 0.0687 & 0.0842 & 0.0960 & 0.957 \\
+Pénalité $L_2$ & $\lambda = 0.001$ & 0.0740 & 0.0786 & 0.0919 & 0.957 \\
+Dropout & $p = 0.9$ & 0.0724 & 0.0929 & 0.1030 & 0.963 \\
+Early stopping & patience $= 20$ & 0.0784 & 0.0762 & 0.0939 & 0.957 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{table}[htbp]
+\centering
+\caption{Gradient projeté (Adam projeté sur la boule $\|\theta\|_2 \le R$). $R_0$ est la norme de la solution non contrainte de référence. $r_{\mathrm{feas}}$ est le maximum par époque de la violation avant projection.}
+\label{tab:e}
+\resizebox{\textwidth}{!}{\begin{tabular}{lccccccl}
+\toprule
+Contrainte & Loss train & Loss val. & Acc. val. & $\|\theta^\star\|_2$ & $r_{\mathrm{feas}}$ & Contrainte \\
+\midrule
+$R = 0.5R_0$ (4.786) & 0.1941 & 0.2138 & 0.913 & 4.786 & 1.2715 & oui \\
+$R = 0.75R_0$ (7.179) & 0.0784 & 0.0855 & 0.977 & 7.179 & 0.0040 & oui \\
+$R = 1R_0$ (9.572) & 0.0687 & 0.0842 & 0.977 & 9.571 & 0.0002 & oui \\
+$R = 1.5R_0$ (14.358) & 0.0687 & 0.0842 & 0.977 & 9.572 & 0.0000 & non \\
+$R = 2R_0$ (19.144) & 0.0687 & 0.0842 & 0.977 & 9.572 & 0.0000 & non \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{table}[htbp]
+\centering
+\caption{Comparaison pénalisation $L_2$ contre contrainte explicite $\|\theta\|_2 \le R$ à normes finales comparables (moyenne $\pm$ écart-type sur 3 graines).}
+\label{tab:f}
+\resizebox{\textwidth}{!}{\begin{tabular}{lccccccc}
+\toprule
+Pénalité & Rayon $R$ & \multicolumn{1}{c}{Loss val. (pén.)} & \multicolumn{1}{c}{Loss val. (cont.)} & \multicolumn{1}{c}{Acc. test (pén.)} & \multicolumn{1}{c}{Acc. test (cont.)} & \multicolumn{1}{c}{$\|\theta^\star\|$ (pén.)} & \multicolumn{1}{c}{$\|\theta^\star\|$ (cont.)} \\
+\midrule
+$\lambda = 0.0001$ & $R = 9.009$ & 0.0828 $\pm$ 0.0029 & 0.0806 $\pm$ 0.0014 & 0.960 $\pm$ 0.000 & 0.960 $\pm$ 0.003 & 9.192 & 9.009 \\
+$\lambda = 0.001$ & $R = 7.232$ & 0.0794 $\pm$ 0.0008 & 0.0870 $\pm$ 0.0015 & 0.959 $\pm$ 0.002 & 0.961 $\pm$ 0.006 & 7.295 & 7.232 \\
+$\lambda = 0.01$ & $R = 4.805$ & 0.1233 $\pm$ 0.0009 & 0.2232 $\pm$ 0.0087 & 0.950 $\pm$ 0.000 & 0.910 $\pm$ 0.005 & 4.837 & 4.805 \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+
+\begin{table}[htbp]
+\centering
+\caption{Vérification PyTorch : mêmes initialisations, mêmes lots, mêmes hyperparamètres (float64).}
+\label{tab:g}
+\resizebox{\textwidth}{!}{\begin{tabular}{lcccccc}
+\toprule
+Optimiseur & Cadre & Loss train & Loss val. & Acc. val. & Acc. test & Max $|\Delta$loss$|$ \\
+\midrule
+SGD & NumPy & 0.0665 & 0.0805 & 0.973 & 0.967 & -- \\
+SGD & PyTorch & 0.0665 & 0.0805 & 0.973 & 0.967 & $5.7\times 10^{-11}$ \\
+
+Adam & NumPy & 0.0687 & 0.0842 & 0.977 & 0.957 & -- \\
+Adam & PyTorch & 0.0687 & 0.0842 & 0.977 & 0.957 & $1.1\times 10^{-12}$ \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
